@@ -20,7 +20,6 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Set Handlebars
 // Set Handlebars.
 var exphbs = require("express-handlebars");
 
