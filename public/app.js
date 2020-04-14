@@ -29,7 +29,7 @@ $("#get-articles").on("click", event => {
   $.ajax({
     method: "GET",
     url: "/scrape",
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       $.ajax({
         method: "GET",
@@ -44,28 +44,29 @@ $("#get-articles").on("click", event => {
   })
 });
 
-$(document).on("click", "a", function() {
+$(document).on("click", "a", function () {
   let searchDate = $(this).text();
   console.log(searchDate);
   $.ajax({
     method: "GET",
     url: "/articles/search-date/" + searchDate
   })
-  .then(data => {
-    console.log(data);
-    $("#article-list").empty();
-    data.forEach(article => {
-      articleStyling(article);
+    .then(data => {
+      console.log(data);
+      $("#article-list").empty();
+      data.forEach(article => {
+        articleStyling(article);
+      })
     })
-  })
 })
 
 
 $(document).on("click", "h4", function () {
+  // Empty the notes from the note section
   $("#notes").empty();
   $("#note-entries").empty();
+  // Save the id from the p tag
   var thisId = $(this).attr("id");
-  console.log(`The id for this article is ${thisId}`);
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -89,39 +90,40 @@ $(document).on("click", "h4", function () {
         console.log(data.note);
         data.note.forEach(note => {
           let card = $("<div>");
-          card.append(note.title);
-          card.append(`<p>${note.body}</p>`);
+          card.append(`<p>${note.title}</p><p>${note.body}</p>`);
           $("#note-entries").append(card);
-        })
+        });
       }
     });
+});
 
-  // When you click the savenote button
-  $(document).on("click", "#savenote", function () {
-    // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
+// When you click the savenote button
+$(document).on("click", "#savenote", function () {
+  // Grab the id associated with the article from the submit button
+  var thisId = $(this).attr("data-id");
+  console.log(thisId);
 
-    // Run a POST request to change the note, using what's entered in the inputs
-    $.ajax({
-      method: "POST",
-      url: "/articles/" + thisId,
-      data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
-      }
-    })
-      // With that done
-      .then(function (data) {
-        // Log the response
-        console.log(data);
-        // Empty the notes section
-        $("#notes").empty();
-      });
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + thisId,
+    data: {
+      // Value taken from title input
+      title: $("#titleinput").val(),
+      // Value taken from note textarea
+      body: $("#bodyinput").val()
+    }
+  })
+    // With that done
+    .then(function (data) {
+      // Log the response
+      console.log(data);
+      // Empty the notes section
+      $("#notes").empty();
+      $("#note-entries").empty();
+    });
 
-    // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
-  });
-})
+  // Also, remove the values entered in the input and textarea for note entry
+  $("#titleinput").val("");
+  $("#bodyinput").val("");
+});

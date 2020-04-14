@@ -38,7 +38,7 @@ module.exports = app => {
       // then find an article from the req.params.id
       // and update it's "note" property with the _id of the new note
       .then(dbNote => {
-        return db.Article.findOneAndUpdate(req.params.id, { $push: { note: dbNote._id } }, { new: true });
+        return db.Article.findOneAndUpdate({_id: req.params.id}, { $push: { note: dbNote._id } }, { new: true });
       })
       .then(dbArticle => {
         res.json(dbArticle);
