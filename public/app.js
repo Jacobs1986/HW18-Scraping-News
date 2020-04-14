@@ -11,11 +11,23 @@ function articleStyling(article) {
 
 $("#get-articles").on("click", event => {
   console.log("Button was clicked");
+  $("#article-list").empty();
   $.ajax({
     method: "GET",
-    url: "/scrape"
+    url: "/scrape",
+    success: function() {
+      $.ajax({
+        method: "GET",
+        url: "/articles/date"
+      }).then(data => {
+        console.log(data);
+        data.forEach(article => {
+          articleStyling(article);
+        })
+      })
+    }
   })
-})
+});
 
 $.getJSON("/articles", data => {
   console.log(data);
@@ -26,6 +38,7 @@ $.getJSON("/articles", data => {
 
 $(document).on("click", "h4", function () {
   $("#notes").empty();
+  $("#note-entries").empty();
   var thisId = $(this).attr("id");
   console.log(`The id for this article is ${thisId}`);
 
