@@ -26,7 +26,7 @@ module.exports = app => {
                 db.Article.create(result)
                     .then(function (dbArticle) {
                         console.log(dbArticle);
-                        res.redirect("/articles");
+                        console.log("Scrape complete");
                     }).catch(function (error) {
                         console.log(error)
                     });

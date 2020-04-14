@@ -1,4 +1,13 @@
-console.log("The file is linked up!")
+// Functions
+
+// Styling the article list
+function articleStyling(article) {
+  let card = $("<div>").addClass("row");
+  card.append(`<h4 id='${article._id}'>${article.title}</h4>`);
+  card.append(`<p>${article.summary}<br><a target="_blank" href='${article.link}'>Click here for full article</a></p>`);
+  // card.append(`<a target="_blank" href='${article.link}'>Click here for full article</a>`)
+  $("#article-list").append(card);
+}
 
 $("#get-articles").on("click", event => {
   console.log("Button was clicked");
@@ -9,28 +18,24 @@ $("#get-articles").on("click", event => {
 })
 
 $.getJSON("/articles", data => {
-    console.log(data);
-    data.forEach(article => {
-        let card = $("<div>").addClass("row");
-        card.append(`<h4 id='${article._id}'>${article.title}</h4>`);
-        card.append(`<p>${article.summary}<br><a target="_blank" href='${article.link}'>Click here for full article</a></p>`);
-        // card.append(`<a target="_blank" href='${article.link}'>Click here for full article</a>`)
-        $("#article-list").append(card);
-    })
+  console.log(data);
+  data.forEach(article => {
+    articleStyling(article);
+  })
 })
 
-$(document).on("click", "h4", function() {
-    $("#notes").empty();
-    var thisId = $(this).attr("id");
-    console.log(`The id for this article is ${thisId}`);
+$(document).on("click", "h4", function () {
+  $("#notes").empty();
+  var thisId = $(this).attr("id");
+  console.log(`The id for this article is ${thisId}`);
 
-    // Now make an ajax call for the Article
+  // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
     url: "/articles/" + thisId
   })
     // With that done, add the note information to the page
-    .then(function(data) {
+    .then(function (data) {
       console.log(data);
       // The title of the article
       $("#notes").append("<h2>" + data.title + "</h2>");
@@ -43,21 +48,21 @@ $(document).on("click", "h4", function() {
 
       // If there's a note in the article
       if (data.note) {
-          console.log(data.note);
-          data.note.forEach(note => {
-              let card = $("<div>");
-              card.append(note.title);
-              card.append(`<p>${note.body}</p>`);
-              $("#note-entries").append(card);
-          })
+        console.log(data.note);
+        data.note.forEach(note => {
+          let card = $("<div>");
+          card.append(note.title);
+          card.append(`<p>${note.body}</p>`);
+          $("#note-entries").append(card);
+        })
       }
     });
 
-    // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+  // When you click the savenote button
+  $(document).on("click", "#savenote", function () {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
-  
+
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
       method: "POST",
@@ -70,13 +75,13 @@ $(document).on("click", "#savenote", function() {
       }
     })
       // With that done
-      .then(function(data) {
+      .then(function (data) {
         // Log the response
         console.log(data);
         // Empty the notes section
         $("#notes").empty();
       });
-  
+
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
