@@ -26,11 +26,11 @@ module.exports = app => {
                 db.Article.create(result)
                     .then(function (dbArticle) {
                         console.log(dbArticle);
+                        res.redirect("/articles");
                     }).catch(function (error) {
                         console.log(error)
                     });
             });
-            res.send("Scrape Complete");
         });
     });
 }

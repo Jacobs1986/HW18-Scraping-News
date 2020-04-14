@@ -6,6 +6,12 @@ module.exports = app => {
         db.Article.find({}).then(dbArticle => { res.json(dbArticle) });
     })
 
+    // get articles by date
+    app.get("/articles/date", (req, res) => {
+      let searchDate = "Mon Apr 13 2020 13:19:39 GMT-0600 (Mountain Daylight Time)";
+      db.Article.find({ date: searchDate} ).then(dbArticle => { res.json(dbArticle) });
+    })
+
     // find an article by id
     app.get("/articles/:id", function(req, res) {
         db.Article.findById(req.params.id)
