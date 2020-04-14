@@ -2,6 +2,14 @@ h1, h2 {
     text-align: center;
 }
 
+h1 {
+    background-color: #0d71f3;
+    color: beige;
+    padding: 17px;
+    font-family: 'Bangers', cursive;
+    font-size: 4em;
+}
+
 textarea, 
 input {
     display: block;
