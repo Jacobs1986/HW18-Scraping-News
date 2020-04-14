@@ -9,7 +9,7 @@ module.exports = app => {
     // find an article by id
     app.get("/articles/:id", function(req, res) {
         db.Article.findById(req.params.id)
-        .populate("note")
+        .populate('note')
         .then(dbArticle => {
             res.json(dbArticle);
         })

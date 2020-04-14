@@ -35,10 +35,13 @@ $(document).on("click", "h4", function() {
 
       // If there's a note in the article
       if (data.note) {
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
-        // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
+          console.log(data.note);
+          data.note.forEach(note => {
+              let card = $("<div>");
+              card.append(note.title);
+              card.append(`<p>${note.body}</p>`);
+              $("#note-entries").append(card);
+          })
       }
     });
 
