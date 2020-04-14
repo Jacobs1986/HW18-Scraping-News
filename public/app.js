@@ -9,6 +9,17 @@ function articleStyling(article) {
   $("#article-list").append(card);
 }
 
+
+$.getJSON("/articles", data => {
+  let dateArray = [];
+  data.forEach(article => {
+    if (dateArray.indexOf(article.date) === -1) {
+      dateArray.push(article.date);
+    };
+  })
+  console.log(dateArray);
+})
+
 $("#get-articles").on("click", event => {
   console.log("Button was clicked");
   $("#article-list").empty();
@@ -29,12 +40,6 @@ $("#get-articles").on("click", event => {
   })
 });
 
-$.getJSON("/articles", data => {
-  console.log(data);
-  data.forEach(article => {
-    articleStyling(article);
-  })
-})
 
 $(document).on("click", "h4", function () {
   $("#notes").empty();
