@@ -1,6 +1,7 @@
 // Dependencies
 const axios = require("axios");
 const cheerio = require("cheerio");
+const moment = require("moment");
 var db = require("../models");
 const url = "https://www.usatoday.com";
 
@@ -12,8 +13,13 @@ module.exports = app => {
 
   // get articles by date
   app.get("/articles/date", (req, res) => {
-    let searchDate = new Date();
+    let searchDate = moment().format("dddd MMMM DD, YYYY hh:mm A");
     db.Article.find({ date: searchDate }).then(dbArticle => { res.json(dbArticle) });
+  })
+
+  app.get("/articles/search-date/:date", (req, res) => {
+    console.log(req.params);
+    db.Article.find({ date: req.params.date} ).then(dbResult => {res.json(dbResult) });
   })
 
   // find an article by id
@@ -49,7 +55,7 @@ module.exports = app => {
         var result = {}
         var link = $(element).attr("href");
 
-        result.date = new Date();
+        result.date = moment().format("dddd MMMM DD, YYYY hh:mm A");
         result.title = $(element).text();
         result.link = `${url}${link}`;
         result.summary = $(element).attr("data-c-br");

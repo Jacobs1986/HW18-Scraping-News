@@ -18,8 +18,8 @@ $.getJSON("/articles", data => {
     };
   })
   dateArray.forEach(date => {
-    let day = moment(date).format("dddd, MMMM Do YYYY");
-    $("#pull-history").append(`<a>${day}</a><br>`)
+    let card = $("<div>")
+    $("#pull-history").append(`<a href='#'>${date}</a><br>`);
   })
 })
 
@@ -29,7 +29,8 @@ $("#get-articles").on("click", event => {
   $.ajax({
     method: "GET",
     url: "/scrape",
-    success: function() {
+    success: function(data) {
+      console.log(data);
       $.ajax({
         method: "GET",
         url: "/articles/date"
@@ -42,6 +43,22 @@ $("#get-articles").on("click", event => {
     }
   })
 });
+
+$(document).on("click", "a", function() {
+  let searchDate = $(this).text();
+  console.log(searchDate);
+  $.ajax({
+    method: "GET",
+    url: "/articles/search-date/" + searchDate
+  })
+  .then(data => {
+    console.log(data);
+    $("#article-list").empty();
+    data.forEach(article => {
+      articleStyling(article);
+    })
+  })
+})
 
 
 $(document).on("click", "h4", function () {
