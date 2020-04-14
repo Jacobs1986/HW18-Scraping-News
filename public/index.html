@@ -19,6 +19,9 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+    <!-- Moment JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 </head>
 
 <body>
@@ -34,7 +37,11 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4"></div>
+            <div class="col-4 overflow-auto" style="height: 45em;">
+                <h2>Pull History</h2>
+                <hr>
+                <div id="pull-history"></div>
+            </div>
             <div class="col-4 overflow-auto" style="height: 45em;">
                 <h2>Articles</h2>
                 <hr>

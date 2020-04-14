@@ -17,7 +17,10 @@ $.getJSON("/articles", data => {
       dateArray.push(article.date);
     };
   })
-  console.log(dateArray);
+  dateArray.forEach(date => {
+    let day = moment(date).format("dddd, MMMM Do YYYY");
+    $("#pull-history").append(`<a>${day}</a><br>`)
+  })
 })
 
 $("#get-articles").on("click", event => {
