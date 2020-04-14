@@ -6,7 +6,7 @@ $.getJSON("/articles", data => {
         let card = $("<div>").addClass("row");
         card.append(`<h4 id='${article._id}'>${article.title}</h4>`);
         card.append(`<p>${article.summary}</p>`);
-        card.append(`<a href='${article.link}'>Click here for full article</a>`)
+        card.append(`<a target="_blank" href='${article.link}'>Click here for full article</a>`)
         $("#article-list").append(card);
     })
 })
