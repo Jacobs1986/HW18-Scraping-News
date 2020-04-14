@@ -18,6 +18,7 @@ module.exports = app => {
                 var result = {}
                 var link = $(element).attr("href");
 
+                result.date = new Date();
                 result.title = $(element).text();
                 result.link = `${url}${link}`;
                 result.summary = $(element).attr("data-c-br");
