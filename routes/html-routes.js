@@ -11,7 +11,7 @@ module.exports = app => {
         res.render("index")
     });
 
-    app.get("/articles", (req, res) => {
+    app.get("/scrape", (req, res) => {
         axios.get(`${url}/news`).then(response => {
             var $ = cheerio.load(response.data);
             $("div[aria-label='More Top Stories'] a").each((i, element) => {
@@ -19,7 +19,7 @@ module.exports = app => {
                 var link = $(element).attr("href");
 
                 result.title = $(element).text();
-                result.link = `${url}/${link}`;
+                result.link = `${url}${link}`;
                 result.summary = $(element).attr("data-c-br");
 
                 db.Article.create(result)
