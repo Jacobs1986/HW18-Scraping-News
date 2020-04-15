@@ -3,13 +3,18 @@
 <br>
 
 <div class="container">
-    <p>This website pulls from USA to get the most recent top articles. Click the button below to get the most recent articles.</p>
+    <p>This website pulls from USA to get the most recent top articles. Click the button below to get the most
+        recent articles. To view past articles click on a date to the left to view.</p>
     <button id="get-articles">Get Articles</button>
 </div>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-4"></div>
+        <div class="col-4 overflow-auto" style="height: 45em;">
+            <h2>Pull History</h2>
+            <hr>
+            <div id="pull-history"></div>
+        </div>
         <div class="col-4 overflow-auto" style="height: 45em;">
             <h2>Articles</h2>
             <hr>
